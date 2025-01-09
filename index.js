@@ -264,6 +264,7 @@ const depositMoney = (username) => {
             type: 'credit',
             user: 'Self',
         });
+        alert('Successfully deposit');
         saveToLocalStorage();
         userInfo(username);
     } else {
@@ -282,6 +283,7 @@ const withdrawMoney = (username) => {
             type: 'debit',
             user: 'Self'
         });
+        alert('Successfully withdraw');
         saveToLocalStorage();
         userInfo(username);
     } else {
@@ -294,6 +296,8 @@ const transferMoney = (username) => {
     const amount = prompt('Enter the amount to transfer:');
     if(toUsername === username) {
         alert('Cannot transfer to yourself!');
+    } else if(!registered_user.has(toUsername)) {
+        alert('User does not exist!');
     } else if (toUsername && amount && !isNaN(amount) && amount > 0 && amount <= user_valance.get(username)) {
         user_valance.set(username, user_valance.get(username) - parseFloat(amount));
         user_valance.set(toUsername, user_valance.get(toUsername) + parseFloat(amount));
@@ -309,6 +313,7 @@ const transferMoney = (username) => {
             type: 'credit',
             user: toUsername,
         });
+        alert('Transaction Successful');
         saveToLocalStorage();
         userInfo(username);
     } else {
